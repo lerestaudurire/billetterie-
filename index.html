@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Le Restau du Rire — Édition 1.5</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#14224f"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Restau du Rire"><meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#090909;color:#fff;line-height:1.5}
+[hidden]{display:none!important}
+.c{max-width:720px;margin:auto;padding:18px 12px 45px}.w{max-width:1150px}
+.h{text-align:center;padding:10px 0 20px}
+.logo{width:130px;height:130px;border-radius:50%;background:#fff;object-fit:cover;display:block;margin:0 auto 12px}
+h1{font-size:26px;font-weight:900}h2{font-size:18px;margin-bottom:10px}h3{font-size:15px;margin:18px 0 4px}
+.sm{color:#999;font-size:12px}
+.card{background:#151515;border:1px solid #292929;border-radius:16px;padding:16px;margin-bottom:16px}
+.poster{width:100%;border-radius:12px;display:block}
+.ev{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin-bottom:16px}
+.ev div{background:#151515;border:1px solid #292929;border-radius:12px;padding:10px 4px;font-size:12px}.ev b{display:block}
+.tk{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #292929}
+.q{display:flex;align-items:center;gap:8px}
+.q button{width:38px;height:38px;border:0;border-radius:10px;background:#292929;color:#fff;font-size:21px}
+.q span{min-width:24px;text-align:center;font-weight:bold}
+.sum{background:#0b0b0b;border:1px solid #303030;border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
+.sum p{display:flex;justify-content:space-between;padding:3px 0}
+label{display:block;font-size:12px;font-weight:bold;margin:12px 0 5px}
+input,select,textarea{width:100%;background:#0b0b0b;border:1px solid #333;border-radius:10px;color:#fff;padding:12px;font-size:16px;font-family:inherit}
+textarea{min-height:80px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay{background:#0c0c0c;border:1px solid #303030;border-radius:10px;padding:10px;margin-bottom:8px;font-size:13px}.pay span{color:#aaa;display:block}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:15px;font-size:15px;font-weight:900;cursor:pointer;text-align:center;text-decoration:none;margin-top:10px;color:#fff;background:#252525}
+.wa{background:#25d366;color:#06150b}.wh{background:#fff;color:#000}
+.note{display:none;background:#123d24;border-radius:10px;padding:12px;margin-top:12px;text-align:center;font-size:14px}
+.soc{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}
+.soc a{color:#ddd;background:#222;border:1px solid #303030;border-radius:20px;padding:7px 11px;font-size:12px;text-decoration:none}
+footer{text-align:center;color:#777;font-size:11px;line-height:1.8}footer a{color:#999}
+.st{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.st div{background:#151515;border:1px solid #292929;border-radius:14px;padding:14px;font-size:11px;color:#999}
+.st b{display:block;font-size:22px;color:#fff;margin-top:4px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:1000px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #292929;font-size:11px;vertical-align:top}
+th{color:#888;font-size:10px;text-transform:uppercase}
+/* ===== DASHBOARD MOBILE ===== */
+@media(max-width:700px){
+ .tw{overflow:visible}
+ table{min-width:0;width:100%;display:block}
+ thead{display:none}
+ tbody{display:block;width:100%}
+ tbody tr{display:block;width:100%;background:#0d0d0d;border:1px solid #292929;border-radius:14px;margin-bottom:14px;padding:10px}
+ tbody td{display:block;width:100%;border:0;padding:7px 4px;font-size:13px;word-break:break-word}
+ tbody td:before{display:block;color:#777;font-size:10px;font-weight:bold;text-transform:uppercase;margin-bottom:3px}
+ tbody td:nth-child(1):before{content:"Date"}
+ tbody td:nth-child(2):before{content:"Client"}
+ tbody td:nth-child(3):before{content:"Adresse"}
+ tbody td:nth-child(4):before{content:"Billets"}
+ tbody td:nth-child(5):before{content:"Total"}
+ tbody td:nth-child(6):before{content:"Paiement"}
+ tbody td:nth-child(7):before{content:"Statut"}
+ tbody td:nth-child(8):before{content:"Actions"}
+ tbody td[colspan]:before{content:none}
+ tbody td:nth-child(8){border-top:1px solid #292929;margin-top:8px;padding-top:12px}
+ tbody td:nth-child(8) .ab{display:inline-block;min-height:38px;padding:9px 12px;font-size:12px;margin:3px 2px}
+}
+.s1,.s2,.s3{padding:4px 7px;border-radius:6px;font-size:9px;font-weight:bold}
+.s1{background:#332d1c;color:#e8d080}.s2{background:#183522;color:#72db8e}.s3{background:#351c1c;color:#e67b7b}
+.ab{border:0;border-radius:6px;padding:6px 8px;font-size:10px;margin:2px;cursor:pointer;color:#fff;background:#292929}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}
+.top img{width:50px;height:50px;border-radius:50%;background:#fff;object-fit:cover}
+.lg{max-width:380px;margin:60px auto;text-align:center}.lg input{margin-bottom:10px}
+.er{color:#ff7777;font-size:12px;display:none}
+@media(max-width:600px){.st{grid-template-columns:1fr 1fr}.ev{grid-template-columns:1fr}}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:16px;z-index:9;overflow:auto}.mo.on{display:flex}
+.tkt{background:#fff;color:#000;border-radius:16px;padding:18px;max-width:340px;width:100%;text-align:center}.tkt img{width:70px;height:70px;border-radius:50%}.tkt p{margin:4px 0}
+#qr{display:flex;justify-content:center;margin:12px 0}#vid{width:100%;border-radius:12px;background:#000}.ok,.ko{color:#fff;padding:10px;border-radius:10px}.ok{background:#123d24}.ko{background:#4a1616}
+@media print{#pub,#adm{display:none!important}.mo{background:#fff;position:static}.ab{display:none}}
+.ck{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #292929;cursor:pointer;font-size:14px;margin:0;font-weight:normal}
+.ck input{width:22px;height:22px;flex:none;accent-color:#25d366;margin-top:2px}.ck input:checked+span{color:#777;text-decoration:line-through}.ck small{display:block;color:#999;font-size:12px}
+summary{font-weight:bold;font-size:16px;cursor:pointer}ol.rt{padding-left:20px;font-size:14px;margin-top:6px}ol.rt li{padding:4px 0}
+.tkt.wide{max-width:560px;text-align:left}.staff .adm-only{display:none!important}
+.row2{display:flex;gap:8px;justify-content:space-between;align-items:center;border-bottom:1px solid #ddd;padding:6px 0;font-size:12px;color:#000}
+body.pubmode{background:#f3f5fa}
+#pub{color:#111b3a;padding-bottom:84px}#pub [id]{scroll-margin-top:72px}#pub .c{padding-top:0}
+.bar{position:sticky;top:0;z-index:20;background:#fff;margin:0 -12px 14px;padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #e3e8f2}
+.bar .lc{width:38px;height:38px;border-radius:10px;background:#fff;object-fit:cover;border:1px solid #e3e8f2}
+.bar .bt{font-weight:900;font-size:17px;flex:1;color:#0f1f4a}.bar .bt b{color:#f5a623}
+.mbtn{border:1px solid #e3e8f2;background:#fff;border-radius:14px;padding:8px 14px;font-size:18px;cursor:pointer;color:#0f1f4a}
+#menu{position:absolute;right:12px;top:58px;background:#fff;border:1px solid #e3e8f2;border-radius:16px;box-shadow:0 10px 30px rgba(15,31,74,.18);padding:6px;min-width:240px}
+#menu a{display:block;padding:12px 14px;font-weight:700;color:#0f1f4a;border-radius:10px;cursor:pointer}#menu a:active{background:#f3f5fa}
+.hero{background:#0f1f4a;color:#fff;border-radius:22px;padding:22px 16px;text-align:center;margin-bottom:14px}
+.hero .logo{width:96px;height:96px;margin-bottom:10px}.hero h1{font-size:24px}.hero b.ed{color:#f5b72c}
+#pub .hero .sm{color:#b9c3e0}.hero .btn{margin-top:12px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px}
+.chips span{white-space:nowrap;background:#fff;border:1px solid #e3e8f2;border-radius:30px;padding:9px 14px;font-weight:700;font-size:13px;color:#0f1f4a}.chips span:first-child{background:#f5b72c;border-color:#f5b72c}
+.sec{font-size:22px;margin:6px 0 10px}
+.evc{background:#fff;border:1px solid #e3e8f2;border-radius:20px;overflow:hidden;margin-bottom:16px}
+.evimg{position:relative;background:linear-gradient(135deg,#0f1f4a,#f5a623);min-height:140px}.evimg img{width:100%;display:block}
+.bd{position:absolute;left:10px;top:10px;background:#2563eb;color:#fff;font-weight:700;font-size:13px;padding:6px 10px;border-radius:10px}
+.tg{position:absolute;right:10px;bottom:10px;background:#0f1f4a;color:#fff;font-weight:800;font-size:12px;letter-spacing:1px;padding:8px 12px;border-radius:10px}
+.evb{padding:14px 16px}.evb h3{font-size:18px;margin:0 0 8px;color:#111b3a}.evb p{margin:4px 0;color:#42507a;font-size:14px}
+.evf{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:14px;color:#42507a}.evf b{color:#111b3a;font-size:16px}
+.btn.or{background:#f5b72c;color:#111b3a;width:auto;margin:0;padding:11px 18px}.hero .btn.or{width:100%}
+.bn{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid #e3e8f2;display:flex;justify-content:space-around;padding:6px 0 max(6px,env(safe-area-inset-bottom))}
+.bn a{flex:1;text-align:center;font-size:20px;color:#5b6890;cursor:pointer;line-height:1.1}.bn a span{display:block;font-size:11px;font-weight:700;margin-top:2px}
+.bn a.on{color:#0f1f4a}.bn a.on span{color:#f5a623}
+.fab{position:fixed;right:14px;bottom:84px;z-index:31;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+#pub .card{background:#fff;border-color:#e3e8f2;color:#111b3a}#pub .sm{color:#6b7694}#pub label{color:#223}
+#pub input,#pub select,#pub textarea{background:#fff;border-color:#d5dbea;color:#111b3a}
+#pub .tk{border-color:#e8ecf5}#pub .q button{background:#eef1f8;color:#111b3a}
+#pub .sum{background:#f3f5fa;border-color:#e3e8f2}#pub .pay{background:#f7f9fd;border-color:#e3e8f2;color:#111b3a}#pub .pay span{color:#5b6890}
+#pub .btn.dk{background:#0f1f4a;color:#fff}#pub .soc a{background:#eef1f8;border-color:#e3e8f2;color:#0f1f4a}
+#pub footer,#pub footer a{color:#6b7694}#pub .note{background:#e7f7ee;color:#0b5130}
+.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}.fl{width:26px;height:18px;border-radius:3px}
+.hd{position:sticky;top:0;z-index:20;background:#fff;margin:0 -12px;padding:12px 12px 10px;border-bottom:1px solid #e5e9f2}
+.hr1{display:flex;align-items:center;gap:7px}
+.lg2{width:40px;height:40px;border-radius:11px;object-fit:cover;background:#fff;flex:none}
+.br{font-weight:900;font-size:17px;color:#14224f;flex:1;white-space:nowrap}.br b{color:#f59e0b}
+.pl{display:flex;align-items:center;gap:5px;border:1px solid #dfe5f1;border-radius:15px;padding:7px 9px;font-weight:800;font-size:13px;color:#14224f;background:#fff;box-shadow:0 1px 3px rgba(20,34,79,.08);cursor:default}
+.pl .i{width:15px;height:15px}.mbtn{cursor:pointer;font-size:13px}.mbtn .i{width:22px;height:22px}
+.av{width:30px;height:30px;border-radius:50%;background:#14224f;color:#fff;display:flex;align-items:center;justify-content:center}.av .i{width:17px;height:17px}
+.sb{position:relative;margin-top:10px}.sb .si{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#8693b5;display:flex}
+#pub .sb input{padding:0 14px 0 46px;height:50px;border-radius:18px;border:1px solid #dfe5f1;background:#f8f9fd;font-size:16px;margin:0}
+#menu{position:absolute;right:12px;top:66px;width:min(310px,88vw);background:#fff;border:1px solid #e5e9f2;border-radius:22px;box-shadow:0 14px 34px rgba(20,34,79,.2);padding:8px}
+#menu a{display:flex;align-items:center;gap:14px;padding:15px 12px;font-size:16px;font-weight:800;color:#14224f;border-radius:14px;cursor:pointer}#menu a .i{color:#f59e0b}
+#menu hr{border:0;border-top:1px solid #e8ecf5;margin:4px 8px}
+.nv{background:#14224f;margin:0 -12px;padding:18px 12px 46px}.hc{background:#fff;border-radius:24px;padding:16px;border:1px solid #e5e9f2}
+#pub .btn.nb{background:#14224f;color:#fff;display:flex;justify-content:center;align-items:center;gap:8px;margin:12px 0 0;padding:16px;border-radius:18px;font-size:17px}
+#pub .hc .sb{margin-top:0}#pub .btn.nb .i{width:18px;height:18px}#pub .btn.nb.sm2{width:auto;margin:0;padding:13px 18px;border-radius:16px;font-size:15px}
+.tw2{position:relative;margin:-28px 0 20px}.tabs{display:flex;gap:6px;overflow-x:auto;background:#fff;border-radius:24px;padding:10px 54px 10px 10px;box-shadow:0 8px 24px rgba(20,34,79,.12);scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.ct{display:flex;align-items:center;gap:8px;border:0;background:transparent;border-radius:16px;padding:13px 18px;font-weight:800;font-size:16px;color:#5b6890;white-space:nowrap;cursor:pointer}.ct.on{background:#f5b83d;color:#14224f}
+.tn{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid #dfe5f1;background:#fff;color:#14224f;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(20,34,79,.12);cursor:pointer}
+.ah{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:12px}.big{font-size:34px;font-weight:900;color:#14224f;line-height:1.1;margin:0}
+.car{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -12px;padding:6px 12px 16px;scrollbar-width:none}.car::-webkit-scrollbar{display:none}
+.evc2{flex:0 0 80%;max-width:420px;scroll-snap-align:start;background:#fff;border:1px solid #e5e9f2;border-radius:24px;overflow:hidden;cursor:pointer;box-shadow:0 4px 14px rgba(20,34,79,.06)}
+.evimg2{position:relative;aspect-ratio:5/6;background:linear-gradient(160deg,#14224f,#f59e0b);display:flex;align-items:center;justify-content:center}.evimg2>img.pic{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.evimg2 .lgo{width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid #fff}
+.bd2{position:absolute;left:12px;top:12px;background:#2563eb;color:#fff;font-weight:800;font-size:15px;padding:8px 12px;border-radius:12px;display:flex;gap:6px;align-items:center}.bd2 .i{width:16px;height:16px;stroke-width:3}
+.tg2{position:absolute;right:12px;bottom:12px;background:#14224f;color:#fff;font-weight:900;font-size:13px;letter-spacing:1.5px;padding:10px 14px;border-radius:12px;display:flex;gap:8px;align-items:center}.tg2 .i{width:16px;height:16px}
+.evb2{padding:16px}.evb2 h3{font-size:21px;font-weight:900;color:#14224f;margin:0 0 10px}.evb2 p{display:flex;gap:10px;align-items:center;margin:7px 0;color:#14224f;font-weight:700;font-size:15px}.evb2 p .i{color:#f59e0b}
+.evf2{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:#5b6890;font-size:14px}.evf2 b{color:#14224f;font-size:16px}.rb{background:#f5b83d;color:#14224f;font-weight:900;border-radius:14px;padding:11px 16px}
+.bn{padding:8px 0 max(8px,env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(20,34,79,.06)}
+.bn a{color:#8693b5;font-size:inherit;display:flex;flex-direction:column;align-items:center;gap:3px}.bn a .i{width:27px;height:27px}.bn a span{font-size:13px;font-weight:800;margin:0}
+.bn a.on{color:#14224f}.bn a.on span{color:#14224f}.bn a.on::after{content:"";width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-top:1px}
+.fab{bottom:92px;width:62px;height:62px;right:16px}.fx{position:absolute;right:-6px;top:-8px;width:26px;height:26px;border-radius:50%;background:#000;color:#fff;border:0;font-size:14px;line-height:1;cursor:pointer}
+.sec2{font-size:28px;font-weight:900;color:#14224f;margin:16px 0 12px}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script></head><body>
+
+<!-- ========== PAGE PUBLIQUE ========== -->
+<div id="pub"><div class="c">
+<div class="hd"><div class="hr1"><img id="mainLogo" class="lg2" alt="Logo Le Restau du Rire" src="data:image/webp;base64,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"><span class="br">Restau<b>duRire</b></span>
+<span class="pl"><svg class="fl" viewBox="0 0 30 20"><rect width="30" height="20" fill="#007fff"/><path d="M-2 22L32 -2" stroke="#f7d618" stroke-width="8"/><path d="M-2 22L32 -2" stroke="#ce1021" stroke-width="5"/><path d="M6 1l1.2 3.4 3.5.1-2.8 2.1 1 3.4L6 8l-2.9 2 1-3.4L1.3 4.5l3.5-.1z" fill="#f7d618"/></svg><span>CD</span><svg class="i" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span><span class="pl"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg><span>FR</span><svg class="i" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+<button class="pl mbtn" onclick="toggleMenu()"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="av"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span></button></div>
+<div class="sb"><span class="si"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span><input id="qs1" placeholder="Rechercher un événement..." oninput="setQ(this.value)"></div>
+<div id="menu" hidden><a onclick="goAdmin()"><svg class="i" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/><path d="M14 4h5a2 2 0 012 2v12a2 2 0 01-2 2h-5"/></svg><span>Accès administrateur</span></a><a onclick="nav('reservation');setTimeout(()=>go('find'),150)"><svg class="i" viewBox="0 0 24 24"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 100-4z"/><path d="M13 7v10" stroke-dasharray="2 2"/></svg><span>Retrouver mon billet</span></a><hr><a onclick="go('contact')"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-1 .7-1.5 1.2-1.5 2.5"/><path d="M12 17.5h.01"/></svg><span>Centre d'aide &amp; contact</span></a></div></div>
+
+<div id="v-home" class="view">
+<div class="nv"><div class="hc"><div class="sb"><span class="si"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span><input id="qs2" placeholder="Rechercher un artiste, un lieu..." oninput="setQ(this.value)"></div><button class="btn nb" onclick="go('alaune')">Explorer <svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+<div class="tw2"><div class="tabs" id="ctabs"></div><button class="tn" aria-label="Suivant" onclick="document.getElementById('ctabs').scrollBy({left:160,behavior:'smooth'})"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
+<div id="alaune" class="ah"><div><h2 class="big">À la une</h2><p class="sm">Les meilleurs événements à Bukavu &amp; ailleurs</p></div><button class="btn nb sm2" onclick="go('evl')">Explorer <svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button></div>
+<div class="car" id="evl"></div>
+</div>
+<div id="v-res" class="view" hidden>
+<h2 class="sec2">🎟️ Réservation</h2>
+<div id="dispo" class="card" style="text-align:center"><div class="sm">BILLETS STANDARD DISPONIBLES</div><div style="font-size:27px;font-weight:900" id="avail"></div></div>
+
+<div id="bientot" class="card" style="text-align:center" hidden><h2>🎟️ Billetterie bientôt ouverte</h2>
+<p class="sm" style="margin-bottom:6px">La vente des billets de l'Édition 1.5 n'a pas encore commencé.<br>Suivez-nous sur nos réseaux pour être prévenu dès l'ouverture !</p>
+<a class="btn wa" href="https://wa.me/243902704475?text=Bonjour%2C%20je%20souhaite%20%C3%AAtre%20pr%C3%A9venu%20de%20l'ouverture%20de%20la%20billetterie." target="_blank">🔔 Être prévenu sur WhatsApp</a></div>
+<div id="vente">
+<section id="res1" class="card"><h2>🎟️ Choisissez vos billets</h2><div id="tk"></div>
+<div class="sum"><p><span>Billets</span><b id="tot">0</b></p><p><span>Total Standard</span><b id="tfc">0 FC</b></p><p><span>Total autres catégories</span><b id="tusd">0 $</b></p></div>
+<div class="g" style="margin-top:10px"><input id="promo" placeholder="Code promo (facultatif)" autocapitalize="characters"><button type="button" class="btn dk" style="margin:0" onclick="applyPromo()">Appliquer</button></div><div class="sm" id="promoMsg" style="margin-top:4px"></div></section>
+
+<section class="card"><h2>👤 Informations du client</h2>
+<label>Nom complet *</label><input id="name" placeholder="Votre nom complet">
+<div class="g"><div><label>Numéro WhatsApp *</label><input id="phone" type="tel" placeholder="+243..."></div>
+<div><label>E-mail (facultatif)</label><input id="email" type="email" placeholder="exemple@email.com"></div></div>
+
+<h3>📍 Adresse complète *</h3><p class="sm">Elle permet de vérifier votre réservation et de vous remettre votre billet.</p>
+<div class="g"><div><label>Pays *</label><input id="pays" value="RD Congo"></div><div><label>Province *</label><input id="province" value="Sud-Kivu"></div></div>
+<div class="g"><div><label>Ville *</label><input id="ville" value="Bukavu"></div><div><label>Commune *</label><input id="commune" placeholder="Ex : Ibanda"></div></div>
+<div class="g"><div><label>Quartier *</label><input id="quartier" placeholder="Votre quartier"></div><div><label>Avenue *</label><input id="avenue" placeholder="Avenue et numéro"></div></div>
+<label>Localisation / point de repère *</label><textarea id="loc" placeholder="Ex : près de l'église, en face de l'école, portail bleu..."></textarea>
+<label>Information complémentaire (facultatif)</label><textarea id="note" placeholder="Une précision..."></textarea>
+</section>
+
+<section class="card"><h2>💳 Paiement</h2><p class="sm" style="margin-bottom:10px">Payez le montant total sur l'un des numéros, puis ajoutez la preuve.</p>
+<div class="pay"><b>Ebengela Yetchouroun</b><span>+243 890 173 447</span></div>
+<div class="pay"><b>Cito Jemima (Mr Augustin 243)</b><span>+243 976 744 637</span></div>
+<div class="pay"><b>Sagesse Imani</b><span>+243 844 045 885</span></div>
+<div class="pay"><b>Amani Michael</b><span>+243 997 998 460</span></div>
+<div class="pay"><b>Daniel Mugisho</b><span>+243 975 340 945</span></div>
+<div class="pay"><b>Wasso Rey (Audrey Rey Wasso)</b><span>+243 992 939 565</span></div>
+<div class="pay"><b>Hubert Zigashane Innocent</b><span>+243 961 613 198</span></div>
+<div class="pay"><b>Raissa Iragi</b><span>+243 990 106 841</span></div>
+<div class="pay"><b>Rosine Jenifer (Sam bin Héro)</b><span>+243 984 471 658</span></div>
+<label>Chez qui avez-vous acheté votre billet ?</label><input id="vend" placeholder="Nom du vendeur (vide = achat direct sur le site)">
+<label>Numéro ayant effectué le paiement *</label><input id="payer" type="tel" placeholder="+243...">
+<label>Destinataire du paiement *</label>
+<select id="rec"><option value="">Sélectionnez le destinataire</option><option>Ebengela Yetchouroun — +243 890 173 447</option><option>Cito Jemima (Mr Augustin 243) — +243 976 744 637</option><option>Sagesse Imani — +243 844 045 885</option><option>Amani Michael — +243 997 998 460</option><option>Daniel Mugisho — +243 975 340 945</option><option>Wasso Rey (Audrey Rey Wasso) — +243 992 939 565</option><option>Hubert Zigashane Innocent — +243 961 613 198</option><option>Raissa Iragi — +243 990 106 841</option><option>Rosine Jenifer (Sam bin Héro) — +243 984 471 658</option></select>
+<label>Capture d'écran du paiement *</label><input id="proof" type="file" accept="image/*">
+</section>
+
+<section class="card"><button id="sendBtn" class="btn wa" style="margin:0" onclick="send()">📲 ENVOYER MA RÉSERVATION SUR WHATSAPP</button>
+<div class="note" id="sent"><a id="payLink" class="btn wh" target="_blank" hidden>💳 Payer en ligne maintenant</a>✅ Réservation enregistrée !<br>Votre capture de paiement a bien été reçue. Nous vous confirmons votre billet après vérification du paiement.</div></section>
+
+</div>
+<section id="find" class="card"><h2>🔎 Retrouver mon billet</h2>
+<p class="sm">Votre billet a été confirmé ? Retrouvez votre code et votre QR code avec votre nom et votre numéro WhatsApp.</p>
+<label>Nom complet</label><input id="fn" placeholder="Le nom utilisé à la réservation">
+<label>Numéro WhatsApp</label><input id="fp" type="tel" placeholder="+243...">
+<button class="btn wa" onclick="findTicket()">🔎 RETROUVER MON BILLET</button><div id="fres"></div></section>
+</div>
+<div id="v-cash" class="view" hidden><section id="cash" class="card"><h2>💵 Achat en espèces</h2>
+<p class="sm">Vous avez payé votre billet en espèces auprès d'un vendeur ? Enregistrez-vous ici avec votre adresse. Après l'envoi, WhatsApp s'ouvre avec votre message : appuyez sur <b>Envoyer</b>, nous vous ajouterons à notre groupe. Nous vérifions votre paiement, puis nous vous envoyons votre code de billet, à présenter à l'entrée.</p>
+<label>Nom complet *</label><input id="cn" placeholder="Votre nom complet">
+<div class="g"><div><label>Numéro WhatsApp *</label><input id="cp" type="tel" placeholder="+243..."></div><div><label>Catégorie *</label><select id="cc"></select></div></div>
+<div class="g"><div><label>Nombre de billets *</label><input id="cq" type="number" min="1" max="10" value="1"></div><div><label>Vendeur (à qui avez-vous payé ?) *</label><input id="cs" placeholder="Nom du vendeur"></div></div>
+<h3>📍 Votre adresse complète *</h3>
+<div class="g"><div><label>Pays *</label><input id="cpays" value="RD Congo"></div><div><label>Province *</label><input id="cprov" value="Sud-Kivu"></div></div>
+<div class="g"><div><label>Ville *</label><input id="cville" value="Bukavu"></div><div><label>Commune *</label><input id="ccom" placeholder="Ex : Ibanda"></div></div>
+<div class="g"><div><label>Quartier *</label><input id="cquart" placeholder="Votre quartier"></div><div><label>Avenue *</label><input id="cave" placeholder="Avenue et numéro"></div></div>
+<label>Localisation / point de repère *</label><textarea id="cloc" placeholder="Ex : près de l'église, en face de l'école, portail bleu..."></textarea>
+<button id="cashBtn" class="btn wa" onclick="regCash()">✅ ENREGISTRER ET ENVOYER SUR WHATSAPP</button>
+<div class="note" id="cashOk">✅ Enregistrement reçu ! N'oubliez pas d'appuyer sur <b>Envoyer</b> dans WhatsApp. Après vérification de votre paiement, nous vous envoyons votre code de billet.</div></section></div>
+<div id="v-online" class="view" hidden><section class="card"><h2>⚡ Achat en ligne</h2>
+<button id="autoBtn" class="btn dk" disabled style="opacity:.6">⚡ Achat en ligne automatique — BIENTÔT DISPONIBLE</button>
+<p class="sm" id="autoDesc" style="margin:6px 2px 0">Bientôt, payez directement sur le site depuis votre téléphone : votre billet avec QR code est confirmé tout de suite, sans capture d'écran ni attente.</p></section></div>
+<section id="contact" class="card"><h2>📞 Nous contacter</h2>
+<div class="g"><a class="btn dk" style="margin:0" href="https://wa.me/243902704475">💬 WhatsApp</a><a class="btn dk" style="margin:0" href="tel:+243902704475">📞 Appeler</a></div>
+<div class="soc" id="soc"></div></section>
+
+<footer><span id="secret">© 2026 Le Restau du Rire</span> — Édition 1.5 • Bukavu, RDC<br><a href="mailto:lerestaudurire@gmail.com">lerestaudurire@gmail.com</a></footer>
+</div>
+<nav class="bn"><a data-p="home" onclick="nav('home')"><svg class="i" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span>Accueil</span></a><a data-p="reservation" onclick="nav('reservation')"><svg class="i" viewBox="0 0 24 24"><path d="M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 100-4z"/><path d="M13 7v10" stroke-dasharray="2 2"/></svg><span>Réservation</span></a><a data-p="especes" onclick="nav('especes')"><svg class="i" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/></svg><span>Espèces</span></a><a data-p="en-ligne" onclick="nav('en-ligne')"><svg class="i" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg><span>En ligne</span></a><a data-p="admin" onclick="goAdmin()"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg><span>Admin</span></a></nav>
+<a class="fab" id="fab" href="https://wa.me/243902704475" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="34" height="34"><path fill="#fff" d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 14c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-2.7-1-4.4-3.6-4.6-3.8-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2 1.1 1 2 1.3 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.8-.1 1.4z"/></svg><button class="fx" onclick="event.preventDefault();event.stopPropagation();this.parentElement.hidden=true">✕</button></a>
+</div>
+
+<!-- ========== DASHBOARD ADMIN (privé) ========== -->
+<div id="adm" hidden>
+<div id="lg" class="lg"><img class="logo lc" alt="Logo"><h2>Espace administration</h2><p class="sm" style="margin-bottom:14px">🔐 Accès réservé</p>
+<input id="em" type="email" placeholder="E-mail administrateur" autocomplete="username"><input id="pw" type="password" placeholder="Mot de passe" autocomplete="current-password"><button class="btn wh" onclick="login()">ACCÉDER AU DASHBOARD</button>
+<p class="er" id="er">Mot de passe incorrect.</p><a href="#" class="sm" onclick="goPublic();return false">← Page publique</a></div>
+
+<div id="dash" class="c w" hidden>
+<div class="top"><div style="display:flex;gap:10px;align-items:center"><img class="lc" alt="Logo"><div><h2 style="margin:0">Dashboard</h2><span class="sm">Édition 1.5</span></div></div>
+<div><button class="ab" onclick="goPublic()">Page publique</button><button class="ab" onclick="logout()">Déconnexion</button></div></div>
+
+<div class="st adm-only"><div>RÉSERVATIONS<b id="s0">0</b></div><div>BILLETS CONFIRMÉS<b id="s1">0</b></div><div>EN ATTENTE<b id="s2">0</b></div><div>STANDARD RESTANTS<b id="s3">0</b></div></div>
+<div class="st adm-only"><div>TOTAL CONFIRMÉ FC<b id="m1">0 FC</b></div><div>TOTAL CONFIRMÉ USD<b id="m2">0 $</b></div><div style="grid-column:span 2">PAR CATÉGORIE (confirmés)<b id="cats" style="font-size:14px"></b></div></div>
+
+<div class="st adm-only"><div>RÉSERVATIONS EN LIGNE<b id="p1" style="font-size:15px"></b></div><div>ESPÈCES<b id="p2" style="font-size:15px"></b></div><div style="grid-column:span 2">ESPÈCES PAR VENDEUR (confirmés / total)<b id="p3" style="font-size:13px"></b></div></div>
+<button class="btn wh" style="margin:0 0 10px" onclick="scan()">📷 Scanner un billet à l'entrée</button>
+<button class="btn dk" style="margin:0 0 16px" onclick="prepOffline()">📥 Préparer le scan hors ligne</button>
+<div class="adm-only" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px"><button class="ab" onclick="listPart()">🖨 Participants</button><button class="ab" onclick="remind()">📣 Rappels</button><button class="ab" onclick="backup()">💾 Sauvegarde</button></div>
+<div class="card adm-only"><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:6px"><h2 style="margin:0">💰 Ventes par vendeur</h2><button class="ab" onclick="csvSellers()">📥 Rapport CSV</button></div><p class="sm" style="margin-bottom:8px">Compte seulement les billets que vous avez confirmés.</p><div id="sl"></div></div>
+<div class="card adm-only"><h2>📊 Ventes</h2><div id="gr"></div></div>
+<div class="card adm-only"><h2>🏷 Codes promo</h2><div class="g"><input id="pc" placeholder="CODE" autocapitalize="characters"><input id="pp" type="number" min="1" max="100" placeholder="% de réduction"></div><button class="btn wh" onclick="addPromo()">Ajouter le code</button><div id="prl" style="margin-top:8px"></div></div>
+<div class="card adm-only"><h2>⏳ Liste d'attente</h2><div id="wll"></div></div>
+<div class="card adm-only"><div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:10px"><h2 style="margin:0">📋 Réservations</h2><span><button class="ab" onclick="load()">↻ Actualiser</button><button class="ab" onclick="csv()">📥 Export CSV</button></span></div>
+<input id="q" type="search" placeholder="🔎 Nom, téléphone..." oninput="draw()" style="margin-bottom:10px"><select id="ft" onchange="draw()" style="margin-bottom:10px"><option value="">Tous les billets</option><option value="reservation">Réservations en ligne</option><option value="cash">Espèces</option></select>
+<div class="tw"><table><thead><tr><th>Date</th><th>Client</th><th>Adresse</th><th>Billets</th><th>Total</th><th>Paiement</th><th>Statut</th><th>Actions</th></tr></thead><tbody id="tb"></tbody></table></div></div>
+</div></div>
+
+<div class="mo" id="mo"><div class="tkt" id="mc"></div></div>
+<script>
+const OUVERT=true; /* true = billetterie ouverte, false = "bientôt ouverte" */
+const LIEN_PAIEMENT=""; /* lien de paiement en ligne fourni par le service (à ajouter plus tard) */
+const SB="https://ebzctmnlriumujgygnby.supabase.co", KEY="sb_publishable_53s1YfsfLt3tLHZFKpqd4g_RrWQUlkb", CAP=480;
+const T=[["standard","Standard",5000,"FC"],["vip","VIP",10,"$"],["vvip","VVIP",20,"$"],["sponsor","Sponsor",50,"$"],["grand_sponsor","Grand Sponsor",100,"$"]];
+const $=id=>document.getElementById(id), nf=n=>new Intl.NumberFormat("fr-FR").format(n);
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const qty={}; T.forEach(t=>qty[t[0]]=0);
+const count=()=>Object.values(qty).reduce((a,b)=>a+b,0);
+let disc=0,promo="";const moneyRaw=q=>({fc:(q.standard||0)*5000,usd:(q.vip||0)*10+(q.vvip||0)*20+(q.sponsor||0)*50+(q.grand_sponsor||0)*100});
+const money=q=>{const m=moneyRaw(q);return{fc:Math.round(m.fc*(1-disc/100)),usd:Math.round(m.usd*(1-disc/100))}};
+const val=id=>$(id).value.trim();
+const H=(t,x={})=>({apikey:KEY,Authorization:"Bearer "+(t||KEY),...x});
+const LIM={standard:300,vip:100,vvip:50,sponsor:20,grand_sponsor:10}; /* limites par catégorie : modifiez ici */
+let stk={}, taken=0, tok=sessionStorage.getItem("lrr_tok")||"", rows=[];
+const num=r=>"LRR-"+String(r.id).slice(0,8).toUpperCase();
+
+document.querySelectorAll(".lc").forEach(i=>i.src=$("mainLogo").src);
+(function(){const l=document.createElement("link");l.rel="icon";l.href=$("mainLogo").src;document.head.appendChild(l)})();
+
+/* ===== PUBLIC ===== */
+$("tk").innerHTML=T.map(t=>`<div class="tk"><div><b>${t[1]}</b><div class="sm">${nf(t[2])} ${t[3]}<span id="r_${t[0]}"></span></div></div><div class="q"><button type="button" onclick="chg('${t[0]}',-1)">−</button><span id="q_${t[0]}">0</span><button type="button" onclick="chg('${t[0]}',1)">+</button></div></div>`).join("");
+function chg(k,v){
+ if(k==="standard"&&v>0&&qty[k]+(stk[k]||0)>=LIM[k]){if(confirm("Cette catégorie est complète. Voulez-vous vous inscrire sur la liste d'attente ?"))waitlist(k);return}
+ qty[k]=Math.max(0,qty[k]+v); upd(); }
+function upd(){ T.forEach(t=>{$("q_"+t[0]).textContent=qty[t[0]];const l=Math.max(LIM[t[0]]-(stk[t[0]]||0)-qty[t[0]],0);$("r_"+t[0]).textContent=t[0]==="standard"?(l?" • "+l+" restants":" • COMPLET"):""});
+ const m=money(qty), r=Math.max(LIM.standard-(stk.standard||0)-qty.standard,0);
+ $("tot").textContent=count(); $("tfc").textContent=nf(m.fc)+" FC"; $("tusd").textContent=nf(m.usd)+" $";
+ $("avail").textContent=nf(r)+(r>1?" billets":" billet"); }
+function loadTaken(){ const call=n=>fetch(SB+"/rest/v1/rpc/"+n,{method:"POST",headers:H("",{"Content-Type":"application/json"}),body:"{}"}).then(r=>{if(!r.ok)throw 0;return r.json()});
+ call("stock").then(s=>{stk=s;taken=+s.total||0;upd()}).catch(()=>call("billets_pris").then(n=>{taken=+n||0;upd()}).catch(()=>{})); }
+
+async function send(){
+ const f=$("proof").files[0];
+ if(!count()){alert("Veuillez sélectionner au moins un billet.");return}
+ const need=["name","phone","pays","province","ville","commune","quartier","avenue","loc","payer"];
+ if(need.some(i=>!val(i))||!$("rec").value){alert("Veuillez remplir tous les champs obligatoires (adresse complète et paiement compris).");return}
+ if(!f||!f.type.startsWith("image/")){alert("Veuillez ajouter la capture d'écran de votre paiement.");return}
+ const b=$("sendBtn"), label=b.textContent; b.disabled=true; b.textContent="⏳ Envoi en cours...";
+ const w=window.open("","_blank");
+ try{
+  const m=money(qty), n=count();
+  const id=(crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c=="x"?r:(r&3|8)).toString(16)}));
+  const path=id+"/"+f.name.replace(/[^\w.\-]/g,"_");
+  let r=await fetch(`${SB}/storage/v1/object/preuves/${path}`,{method:"POST",headers:H("",{"Content-Type":f.type||"image/jpeg"}),body:f});
+  if(!r.ok)throw new Error("Envoi de la capture impossible");
+  const row={id,name:val("name"),phone:val("phone"),email:val("email"),pays:val("pays"),province:val("province"),ville:val("ville"),commune:val("commune"),quartier:val("quartier"),avenue:val("avenue"),loc:val("loc"),note:val("note"),
+   ...qty,total:n,fc:m.fc,usd:m.usd,payer:val("payer"),rec:$("rec").value,proof_path:path,promo:promo||null,seller:val("vend")||null,status:"pending"};
+  r=await fetch(SB+"/rest/v1/reservations",{method:"POST",headers:H("",{"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify(row)});
+  if(!r.ok)throw new Error("Enregistrement de la réservation impossible");
+  const msg=`🎭 *LE RESTAU DU RIRE — ÉDITION 1.5*
+🎟️ *NOUVELLE RÉSERVATION* — ${num(row)}
+
+👤 ${row.name}
+📞 ${row.phone}
+
+📍 ${row.pays}, ${row.province}, ${row.ville}
+Commune : ${row.commune} • Quartier : ${row.quartier} • Avenue : ${row.avenue}
+Repère : ${row.loc}
+
+🎫 ${T.filter(t=>qty[t[0]]).map(t=>t[1]+" × "+qty[t[0]]).join(", ")}
+💰 ${nf(m.fc)} FC + ${nf(m.usd)} $
+
+💳 Payé depuis ${row.payer} vers ${row.rec}
+📸 Capture envoyée via le site`;
+  const url="https://wa.me/243902704475?text="+encodeURIComponent(msg);
+  if(w)w.location=url; else location.href=url;
+  $("sent").style.display="block"; if(LIEN_PAIEMENT){$("payLink").href=LIEN_PAIEMENT;$("payLink").hidden=false} loadTaken();
+ }catch(e){ if(w)w.close(); alert("❌ "+e.message+". Vérifiez votre connexion et réessayez."); }
+ b.disabled=false; b.textContent=label;
+}
+
+/* ===== ADMIN ===== */
+let adminView=false;
+function goAdmin(){adminView=true;route()}
+function goPublic(){adminView=false;location.hash="";route()}
+function route(){ const a=adminView||location.hash==="#admin"; $("pub").hidden=a; $("adm").hidden=!a; document.body.classList.toggle("pubmode",!a); if(!a)showPage((location.hash||"").slice(1));
+ $("lg").hidden=!!tok; $("dash").hidden=!tok; if(a&&tok)initRole(); window.scrollTo(0,0); }
+window.addEventListener("hashchange",route);
+async function login(){
+ const r=await fetch(SB+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:KEY,"Content-Type":"application/json"},body:JSON.stringify({email:val("em"),password:$("pw").value})});
+ if(!r.ok){$("er").style.display="block";return}
+ $("er").style.display="none"; tok=(await r.json()).access_token; sessionStorage.setItem("lrr_tok",tok); $("pw").value=""; route();
+}
+function logout(){tok="";sessionStorage.removeItem("lrr_tok");goPublic()}
+async function api(p,o={}){
+ const r=await fetch(SB+"/rest/v1/"+p,{...o,headers:H(tok,{"Content-Type":"application/json",...(o.headers||{})})});
+ if(r.status===401){logout();alert("Session expirée, reconnectez-vous.");throw 0}
+ if(!r.ok)throw new Error(await r.text());
+ return r.status===204?null:r.json();
+}
+async function load(){ try{rows=await api("reservations?select=*&order=created_at.desc");draw()}catch(e){if(e)alert("Erreur de chargement")} }
+setInterval(()=>{if(tok&&!$("adm").hidden)load()},30000);
+
+function draw(){
+ let c=0,p=0,fc=0,usd=0; const cat={}; T.forEach(t=>cat[t[0]]=0);
+ rows.forEach(r=>{ if(r.status==="confirmed"){c+=+r.total||0;fc+=+r.fc||0;usd+=+r.usd||0;T.forEach(t=>cat[t[0]]+=+r[t[0]]||0)} if(r.status==="pending")p+=+r.total||0; });
+ $("s0").textContent=rows.length;$("s1").textContent=c;$("s2").textContent=p;$("s3").textContent=Math.max(LIM.standard-rows.reduce((a,r)=>a+(r.status==="cancelled"?0:(+r.standard||0)),0),0);
+ $("m1").textContent=nf(fc)+" FC";$("m2").textContent=nf(usd)+" $";
+ $("cats").textContent=T.map(t=>t[1]+" "+cat[t[0]]).join(" • ")+" • Entrés "+rows.filter(r=>r.used).length;
+ const tp=r=>r.type==="cash"?"cash":"reservation", S={reservation:{c:0,p:0},cash:{c:0,p:0}}, V={};
+ rows.forEach(r=>{ if(r.status==="cancelled")return; const n=+r.total||0; if(r.status==="confirmed")S[tp(r)].c+=n; else S[tp(r)].p+=n;
+  if(tp(r)==="cash"){const k=(r.seller||"?").trim(); V[k]=V[k]||[0,0]; V[k][1]+=n; if(r.status==="confirmed")V[k][0]+=n} });
+ $("p1").textContent=S.reservation.c+" confirmés • "+S.reservation.p+" en attente"; $("p2").textContent=S.cash.c+" confirmés • "+S.cash.p+" en attente";
+ drawGr(); drawSellers(); $("p3").textContent=Object.keys(V).map(k=>k+" "+V[k][0]+"/"+V[k][1]).join(" • ")||"—";
+ const s=val("q").toLowerCase(), ft=$("ft").value;
+ const l=rows.filter(r=>[r.name,r.phone,r.id,r.payer,r.ticket_code,r.seller].join(" ").toLowerCase().includes(s)&&(!ft||tp(r)===ft));
+ $("tb").innerHTML=l.length?l.map(r=>{const k=r.status==="confirmed"?["s2","CONFIRMÉ"]:r.status==="cancelled"?["s3","ANNULÉ"]:["s1","EN ATTENTE"];
+ return `<tr><td>${esc(new Date(r.created_at).toLocaleString("fr-FR"))}<br><span class="sm">${num(r)}</span></td>
+ <td><b>${esc(r.name)}</b><br>${esc(r.phone)}<br>${esc(r.email)}</td>
+ <td>${esc(r.pays)}, ${esc(r.province)}<br>${esc(r.ville)} — ${esc(r.commune)}<br>Q. ${esc(r.quartier)}, Av. ${esc(r.avenue)}<br><i>${esc(r.loc)}</i></td>
+ <td>${T.filter(t=>r[t[0]]).map(t=>t[1]+" × "+r[t[0]]).join("<br>")}</td>
+ <td>${nf(r.fc||0)} FC<br>${nf(r.usd||0)} $</td>
+ <td>${r.type==="cash"?`💵 Espèces<br>Vendeur : ${esc(r.seller)}`:`De : ${esc(r.payer)}<br>Vers : ${esc(r.rec)}<br>Vendeur : ${esc(r.seller||"—")}<br><button class="ab" onclick="proof('${r.id}')">📸 Voir la capture</button>`}</td>
+ <td><span class="${k[0]}">${k[1]}</span>${r.used?'<br><span class="s2">✔ ENTRÉ</span>':''}</td>
+ <td>${r.status!=="confirmed"?`<button class="ab" onclick="st('${r.id}','confirmed')">✓ Confirmer</button>`:`<button class="ab" onclick="wa('${r.id}')">💬 Envoyer confirmation</button><button class="ab" onclick="tkt('${r.id}')">🎫 Billet</button>`}${r.status!=="cancelled"?`<button class="ab" onclick="st('${r.id}','cancelled')">✕ Annuler</button>`:""}<button class="ab" onclick="del('${r.id}')">Supprimer</button></td></tr>`}).join("")
+ :`<tr><td colspan="8" style="text-align:center;padding:30px;color:#777">Aucune réservation trouvée.</td></tr>`;
+}
+async function st(id,s){try{await api("reservations?id=eq."+id,{method:"PATCH",headers:{Prefer:"return=minimal"},body:JSON.stringify({status:s})});load()}catch(e){if(e)alert("Échec de la mise à jour")}}
+async function del(id){if(!confirm("Supprimer définitivement cette réservation ?"))return;try{await api("reservations?id=eq."+id,{method:"DELETE",headers:{Prefer:"return=minimal"}});load()}catch(e){if(e)alert("Échec de la suppression")}}
+async function proof(id){
+ const r=rows.find(x=>x.id===id); if(!r||!r.proof_path){alert("Aucune capture.");return}
+ const w=window.open("","_blank");
+ try{ const x=await fetch(`${SB}/storage/v1/object/sign/preuves/${r.proof_path}`,{method:"POST",headers:H(tok,{"Content-Type":"application/json"}),body:JSON.stringify({expiresIn:3600})});
+  const d=await x.json(); if(!d.signedURL)throw 0; w.location=SB+"/storage/v1"+d.signedURL;
+ }catch(e){if(w)w.close();alert("Capture introuvable.")}
+}
+function wa(id){
+ const r=rows.find(x=>x.id===id); if(!r)return;
+ let p=String(r.phone).replace(/\D/g,""); if(p[0]==="0")p="243"+p.slice(1);
+ const m=`Bonjour ${r.name} 👋\n✅ Votre réservation *Le Restau du Rire — Édition 1.5* est *CONFIRMÉE*.\n\n🎫 N° : ${num(r)}\n${T.filter(t=>r[t[0]]).map(t=>t[1]+" × "+r[t[0]]).join(", ")}\n\n📅 27 décembre 2026 • 15h59\n📍 Salle Concordia, Bukavu\n\nPrésentez ce numéro à l'entrée. Merci ! 🎭`;
+ window.open("https://wa.me/"+p+"?text="+encodeURIComponent(m),"_blank");
+}
+function csv(){
+ if(!rows.length){alert("Aucune réservation à exporter.");return}
+ const H2=["id","created_at","name","phone","email","pays","province","ville","commune","quartier","avenue","loc","note",...T.map(t=>t[0]),"total","fc","usd","payer","rec","proof_path","status","used","type","ticket_code","seller"];
+ const s=[H2,...rows.map(r=>H2.map(h=>r[h]))].map(row=>row.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\n");
+ const l=document.createElement("a"); l.href=URL.createObjectURL(new Blob(["\ufeff"+s],{type:"text/csv;charset=utf-8;"})); l.download="reservations-le-restau-du-rire.csv"; l.click();
+}
+const mo=$("mo");
+function closeMo(){mo.classList.remove("on");$("mc").classList.remove("wide");stopScan()}
+function tkt(id){
+ const r=rows.find(x=>x.id===id);
+ if(!r){alert("❌ Billet introuvable.");return}
+ if(r.status!=="confirmed"){alert("⚠️ Ce billet doit être confirmé avant de pouvoir être généré.");return}
+ mo.classList.add("on");
+ $("mc").innerHTML=`<div style="background:#fff;color:#000;border-radius:16px;padding:18px;width:100%;max-width:340px;margin:auto;text-align:center">
+ <img src="${$("mainLogo").src}" alt="Logo Le Restau du Rire" style="width:70px;height:70px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 8px">
+ <h2 style="margin:4px 0 0;color:#000;font-size:20px;font-weight:900">LE RESTAU DU RIRE</h2><b style="font-size:13px">ÉDITION 1.5</b>
+ <div id="qr" style="display:flex;justify-content:center;align-items:center;min-height:230px;margin:12px 0"><span style="color:#777;font-size:12px">Génération du QR code...</span></div>
+ <div style="font-size:20px;font-weight:900;letter-spacing:1px;margin:8px 0">${num(r)}</div>
+ <p style="margin:5px 0"><b>${esc(r.name)}</b></p>
+ <p style="margin:5px 0;font-size:13px">${T.filter(t=>r[t[0]]).map(t=>t[1]+" × "+r[t[0]]).join(" • ")}</p>
+ <p style="margin:8px 0;color:#555;font-size:12px">27 décembre 2026 • 15h59<br>Salle Concordia, Bukavu</p>
+ <div style="margin-top:10px"><button class="ab" onclick="window.print()">🖨 Imprimer</button><button class="ab" onclick="closeMo()">Fermer</button></div></div>`;
+ setTimeout(()=>{
+  const qr=$("qr"); if(!qr){alert("❌ Zone QR introuvable.");return}
+  qr.innerHTML="";
+  try{
+   if(typeof QRCode==="undefined"){qr.innerHTML='<div style="color:#b00020;font-weight:bold;font-size:13px">❌ La bibliothèque QR code n\'est pas chargée.</div>';return}
+   new QRCode(qr,{text:String(r.id),width:220,height:220,correctLevel:QRCode.CorrectLevel.H});
+   setTimeout(()=>{
+    const canvas=qr.querySelector("canvas"); if(!canvas)return;
+    const ctx=canvas.getContext("2d"); if(!ctx)return;
+    const logo=new Image();
+    logo.onload=()=>{
+     const size=48,x=(canvas.width-size)/2,y=(canvas.height-size)/2;
+     const rr=(a,b,c,d,e)=>{ctx.beginPath();ctx.roundRect?ctx.roundRect(a,b,c,d,e):ctx.rect(a,b,c,d)};
+     ctx.fillStyle="#fff";rr(x-7,y-7,size+14,size+14,10);ctx.fill();
+     ctx.save();rr(x,y,size,size,8);ctx.clip();ctx.drawImage(logo,x,y,size,size);ctx.restore();
+     const im=qr.querySelector("img"); if(im){im.src=canvas.toDataURL("image/png");im.style.display="block"}
+    };
+    logo.onerror=()=>console.warn("Le logo n'a pas pu être chargé dans le QR.");
+    logo.src=$("mainLogo").src;
+   },100);
+  }catch(e){console.error("Erreur génération QR :",e);qr.innerHTML='<div style="color:#b00020;font-weight:bold;font-size:13px">❌ Impossible de générer le QR code.</div>'}
+ },100);
+}
+let stream=null,raf=0;
+function stopScan(){cancelAnimationFrame(raf);if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}}
+async function scan(){
+ $("mc").innerHTML=`<h2 style="color:#000;margin-bottom:8px">📷 Scanner un billet</h2><video id="vid" playsinline muted></video><div id="res" style="margin:10px 0;font-size:14px"></div><input id="man" placeholder="ou tapez le N° (LRR-XXXXXXXX)" style="color:#000;background:#eee;margin-bottom:8px"><button class="ab" onclick="check($('man').value)">Vérifier</button><button class="ab" onclick="closeMo()">Fermer</button>`;
+ mo.classList.add("on");
+ try{ stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+  const v=$("vid"); v.srcObject=stream; await v.play();
+  const cv=document.createElement("canvas"),cx=cv.getContext("2d"); let last="";
+  const tick=()=>{ if(v.videoWidth){cv.width=v.videoWidth;cv.height=v.videoHeight;cx.drawImage(v,0,0);
+    const q=jsQR(cx.getImageData(0,0,cv.width,cv.height).data,cv.width,cv.height); if(q&&q.data!==last){last=q.data;check(q.data)}}
+   raf=requestAnimationFrame(tick)}; tick();
+ }catch(e){$("res").textContent="Caméra indisponible : tapez le numéro du billet."}
+}
+const off=()=>{try{return JSON.parse(localStorage.getItem("lrr_off")||"[]")}catch(e){return[]}};
+const tdesc=o=>T.filter(t=>o[t[0]]).map(t=>t[1]+" × "+o[t[0]]).join(", ");
+const ph=p=>{let d=String(p||"").replace(/\D/g,"");if(d[0]==="0")d="243"+d.slice(1);return d};
+let role="";
+async function rpcA(n,a={}){const r=await fetch(SB+"/rest/v1/rpc/"+n,{method:"POST",headers:H(tok,{"Content-Type":"application/json"}),body:JSON.stringify(a)});if(r.status===401){logout();throw 0}if(!r.ok)throw new Error("rpc");return r.json()}
+async function initRole(){ if(!tok)return; try{role=await rpcA("my_role")}catch(e){return}
+ document.body.classList.toggle("staff",role==="staff");
+ if(role==="none"){logout();alert("Accès refusé : ce compte n'a pas l'autorisation.");return}
+ if(role==="admin"){load();loadExtras()} flush() }
+function showRes(o){const el=$("res"),set=(c,x)=>{el.className=c;el.innerHTML=x};
+ if(!o||!o.found)return set("ko","❌ Billet INTROUVABLE");
+ const info=`<b>${esc(o.name)}</b><br>${esc(tdesc(o))}`;
+ if(o.status!=="confirmed")return set("ko","❌ Billet NON CONFIRMÉ<br>"+info);
+ if(o.used)return set("ko","⚠️ DÉJÀ UTILISÉ<br>"+info);
+ set("ok",`✅ BILLET VALIDE<br>${info}<br><button class="ab" onclick="enter('${o.id}')">Valider l'entrée</button>`)}
+async function check(code){
+ code=String(code||"").trim(); if(!code)return;
+ try{showRes(await rpcA("staff_check",{p_code:code}))}
+ catch(e){const c=code.toUpperCase().replace(/\s+/g,""),q=JSON.parse(localStorage.getItem("lrr_q")||"[]"),o=off().find(x=>String(x.id)===code.toLowerCase()||String(x.code).toUpperCase()===c);
+  if(o&&q.includes(o.id))o.used=true; showRes(o?{...o,found:true,status:"confirmed"}:{found:false}); $("res").insertAdjacentHTML("beforeend","<br><span class='sm'>(mode hors ligne)</span>")}}
+async function enter(id){
+ try{await rpcA("staff_enter",{p_id:id});flush()}catch(e){const q=JSON.parse(localStorage.getItem("lrr_q")||"[]");q.push(id);localStorage.setItem("lrr_q",JSON.stringify(q))}
+ $("res").className="ok";$("res").innerHTML="✅ Entrée enregistrée"; if(role==="admin")load()}
+async function flush(){const q=JSON.parse(localStorage.getItem("lrr_q")||"[]"),keep=[];for(const id of q){try{await rpcA("staff_enter",{p_id:id})}catch(e){keep.push(id)}}localStorage.setItem("lrr_q",JSON.stringify(keep))}
+addEventListener("online",()=>{if(tok)flush()});
+async function prepOffline(){try{const l=await rpcA("staff_list");localStorage.setItem("lrr_off",JSON.stringify(l));alert("✅ "+l.length+" billets confirmés chargés pour le scan hors ligne.")}catch(e){alert("Une connexion est nécessaire pour préparer le scan hors ligne.")}}
+$("cc").innerHTML=T.map(t=>`<option value="${t[0]}">${t[1]}</option>`).join("");
+async function regCash(){
+ const name=val("cn"),phone=val("cp"),seller=val("cs"),k=$("cc").value,n=Math.min(Math.max(parseInt($("cq").value)||1,1),10);
+ const A={pays:val("cpays"),province:val("cprov"),ville:val("cville"),commune:val("ccom"),quartier:val("cquart"),avenue:val("cave"),loc:val("cloc")};
+ if(!name||!phone||!seller||Object.values(A).some(v=>!v)){alert("Veuillez remplir tous les champs, adresse complète comprise.");return}
+ const b=$("cashBtn"),old=b.textContent; b.disabled=true; b.textContent="⏳ Enregistrement...";
+ const w=window.open("","_blank");
+ try{
+  const q={standard:0,vip:0,vvip:0,sponsor:0,grand_sponsor:0}; q[k]=1; const m=moneyRaw(q);
+  const uid=()=>crypto.randomUUID?crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c=="x"?r:(r&3|8)).toString(16)});
+  const list=Array.from({length:n},()=>{const id=uid();return{id,type:"cash",ticket_code:"LRR-"+id.slice(0,8).toUpperCase(),seller,name,phone,...A,...q,total:1,fc:m.fc,usd:m.usd,status:"pending"}});
+  const r=await fetch(SB+"/rest/v1/reservations",{method:"POST",headers:H("",{"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify(list)});
+  if(!r.ok)throw new Error("Enregistrement impossible");
+  const cat=T.find(t=>t[0]===k)[1];
+  const msg=`💵 *BILLET PAYÉ EN ESPÈCES*\n🎭 Le Restau du Rire — Édition 1.5\n\n👤 ${name}\n📞 ${phone}\n\n📍 ${A.pays}, ${A.province}, ${A.ville}\nCommune : ${A.commune} • Quartier : ${A.quartier} • Avenue : ${A.avenue}\nRepère : ${A.loc}\n\n🎫 ${n} × ${cat}\n🧾 Vendeur : ${seller}\n🔑 Codes : ${list.map(x=>x.ticket_code).join(", ")}\n\nMerci de m'ajouter au groupe.`;
+  const url="https://wa.me/243902704475?text="+encodeURIComponent(msg); if(w)w.location=url; else location.href=url;
+  ["cn","cp","cs","ccom","cquart","cave","cloc"].forEach(i=>$(i).value=""); $("cq").value=1; $("cashOk").style.display="block"; loadTaken();
+ }catch(e){if(w)w.close();alert("❌ "+e.message)}
+ b.disabled=false; b.textContent=old;
+}
+function openList(html){$("mc").classList.add("wide");mo.classList.add("on");$("mc").innerHTML=html+`<div style="margin-top:10px"><button class="ab" onclick="window.print()">🖨 Imprimer</button><button class="ab" onclick="closeMo()">Fermer</button></div>`}
+function listPart(){const l=rows.filter(r=>r.status==="confirmed").sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+ openList(`<h2 style="color:#000">📋 Participants confirmés (${l.length})</h2>`+l.map(r=>`<div class="row2"><span>${esc(r.name)}</span><span>${esc(tdesc(r))}</span><b>${num(r)}</b><span>☐</span></div>`).join(""))}
+function remind(){const l=rows.filter(r=>r.status==="confirmed");
+ const msg=r=>`Bonjour ${r.name} 👋\n🎭 Rappel : Le Restau du Rire — Édition 1.5, le 27 décembre 2026 à 15h59, Salle Concordia (Bukavu).\n🎫 Votre code : ${num(r)}\nPrésentez-le à l'entrée. À très bientôt !`;
+ openList(`<h2 style="color:#000">📣 Rappels (${l.length})</h2>`+l.map(r=>`<div class="row2"><span>${esc(r.name)}</span><a class="ab" style="text-decoration:none" target="_blank" href="https://wa.me/${ph(r.phone)}?text=${encodeURIComponent(msg(r))}">💬 Rappel</a></div>`).join(""))}
+async function backup(){try{const w=await api("waitlist?select=*"),p=await api("promos?select=*");
+ const l=document.createElement("a");l.href=URL.createObjectURL(new Blob([JSON.stringify({date:new Date().toISOString(),reservations:rows,waitlist:w,promos:p},null,1)],{type:"application/json"}));
+ l.download="sauvegarde-restau-du-rire-"+new Date().toISOString().slice(0,10)+".json";l.click()}catch(e){if(e)alert("Échec de la sauvegarde")}}
+let wl=[],pr=[];
+async function loadExtras(){try{pr=await api("promos?select=*&order=code");wl=await api("waitlist?select=*&order=created_at.desc");drawExtras()}catch(e){}}
+function drawExtras(){
+ $("prl").innerHTML=pr.map(p=>`<div class="sm" style="color:#ddd;padding:4px 0">${esc(p.code)} — ${p.percent}% <button class="ab" onclick="delPromo('${esc(p.code)}')">Supprimer</button></div>`).join("")||'<span class="sm">Aucun code promo.</span>';
+ $("wll").innerHTML=wl.map(w=>`<div class="sm" style="color:#ddd;padding:4px 0">${esc(w.name)} — ${esc(w.phone)} — ${esc(w.category)} <a class="ab" style="text-decoration:none" target="_blank" href="https://wa.me/${ph(w.phone)}">💬</a></div>`).join("")||'<span class="sm">Liste vide.</span>'}
+async function addPromo(){const c=val("pc").toUpperCase().replace(/\s+/g,""),p=parseInt($("pp").value);
+ if(!c||!(p>0&&p<=100)){alert("Code et pourcentage (1 à 100) requis.");return}
+ try{await api("promos",{method:"POST",headers:{Prefer:"return=minimal"},body:JSON.stringify({code:c,percent:p,active:true})});$("pc").value="";$("pp").value="";loadExtras()}catch(e){if(e)alert("Échec (code déjà existant ?)")}}
+async function delPromo(c){if(!confirm("Supprimer ce code promo ?"))return;try{await api("promos?code=eq."+encodeURIComponent(c),{method:"DELETE",headers:{Prefer:"return=minimal"}});loadExtras()}catch(e){if(e)alert("Échec")}}
+function drawGr(){const days={};for(let i=13;i>=0;i--)days[new Date(Date.now()-i*864e5).toISOString().slice(5,10)]=0;
+ rows.forEach(r=>{if(r.status==="cancelled")return;const d=String(r.created_at).slice(5,10);if(d in days)days[d]+=+r.total||0});
+ const mx=Math.max(1,...Object.values(days)),V={};rows.forEach(r=>{if(r.status==="confirmed"){const k=sellerName(r);V[k]=(V[k]||0)+(+r.total||0)}});
+ const vm=Math.max(1,...Object.values(V));
+ $("gr").innerHTML=`<div class="sm" style="margin-bottom:6px">Billets par jour (14 derniers jours)</div><div style="display:flex;align-items:flex-end;gap:3px;height:100px">`+Object.entries(days).map(([d,n])=>`<div style="flex:1;text-align:center;font-size:9px;color:#aaa"><div style="background:#25d366;height:${Math.round(n/mx*70)}px;min-height:${n?2:0}px;border-radius:3px 3px 0 0"></div>${n||""}<br>${d.slice(3)}</div>`).join("")+`</div><div class="sm" style="margin:12px 0 6px">Billets confirmés par vendeur</div>`+(Object.entries(V).map(([k,n])=>`<div style="display:flex;align-items:center;gap:8px;font-size:12px;margin:3px 0"><span style="width:90px">${esc(k)}</span><div style="background:#25d366;height:10px;width:${Math.round(n/vm*60)}%;border-radius:4px"></div>${n}</div>`).join("")||'<span class="sm">Aucune vente en espèces.</span>')}
+async function applyPromo(){const c=val("promo").toUpperCase().replace(/\s+/g,"");
+ if(!c){disc=0;promo="";$("promoMsg").textContent="";upd();return}
+ try{const r=await fetch(SB+"/rest/v1/rpc/check_promo",{method:"POST",headers:H("",{"Content-Type":"application/json"}),body:JSON.stringify({p_code:c})});const p=await r.json();
+  if(r.ok&&p>0){disc=p;promo=c;$("promoMsg").textContent="✅ Code appliqué : -"+p+"%"}else{disc=0;promo="";$("promoMsg").textContent="❌ Code invalide"}}
+ catch(e){$("promoMsg").textContent="❌ Vérification impossible"}
+ upd()}
+async function waitlist(k){const n=(prompt("Votre nom complet :")||"").trim(),p=(prompt("Votre numéro WhatsApp :")||"").trim();if(!n||!p)return;
+ try{const r=await fetch(SB+"/rest/v1/waitlist",{method:"POST",headers:H("",{"Content-Type":"application/json",Prefer:"return=minimal"}),body:JSON.stringify({name:n,phone:p,category:k})});if(!r.ok)throw 0;alert("✅ Vous êtes sur la liste d'attente. Nous vous préviendrons si une place se libère.")}catch(e){alert("❌ Inscription impossible, réessayez.")}}
+async function findTicket(){const n=val("fn"),p=val("fp");if(n.length<3||!p){alert("Entrez votre nom et votre numéro WhatsApp.");return}
+ const box=$("fres");box.innerHTML='<p class="sm">⏳ Recherche...</p>';
+ try{const r=await fetch(SB+"/rest/v1/rpc/find_ticket",{method:"POST",headers:H("",{"Content-Type":"application/json"}),body:JSON.stringify({p_phone:p,p_name:n})});const l=await r.json();if(!r.ok)throw 0;
+  if(!l.length){box.innerHTML='<p class="sm" style="margin-top:8px">Aucun billet confirmé trouvé. Si vous venez de payer, patientez : nous confirmons après vérification.</p>';return}
+  box.innerHTML=l.map((o,i)=>`<div style="background:#fff;color:#000;border-radius:12px;padding:12px;margin-top:10px;text-align:center"><b>${esc(o.name)}</b><br><span style="font-size:13px">${esc(tdesc(o))}</span><div id="fq${i}" style="display:flex;justify-content:center;margin:8px 0"></div><div style="font-size:18px;font-weight:900">${esc(o.code)}</div>${o.used?'<div style="color:#b00020;font-size:12px">⚠️ Déjà utilisé à l\'entrée</div>':''}</div>`).join("");
+  l.forEach((o,i)=>{try{new QRCode($("fq"+i),{text:String(o.id),width:170,height:170})}catch(e){}})
+ }catch(e){box.innerHTML='<p class="sm">❌ Recherche impossible, réessayez.</p>'}}
+const PAGES={home:"v-home",reservation:"v-res",especes:"v-cash","en-ligne":"v-online"};
+function showPage(p){if(!PAGES[p])p="home";Object.entries(PAGES).forEach(([k,id])=>$(id).hidden=k!==p);document.querySelectorAll(".bn a").forEach(a=>a.classList.toggle("on",a.dataset.p===p))}
+function nav(p){adminView=false;$("menu").hidden=true;if(location.hash==="#"+p)route();else location.hash="#"+p}
+function toggleMenu(){const m=$("menu");m.hidden=!m.hidden}
+function go(id){$("menu").hidden=true;if(id==="top"){scrollTo({top:0,behavior:"smooth"});return}const e=$(id);if(e&&e.offsetParent!==null)e.scrollIntoView({behavior:"smooth",block:"start"})}
+document.addEventListener("click",e=>{if(!e.target.closest("#menu,.mbtn"))$("menu").hidden=true});
+const sk=r=>String(r.seller||"").trim().toLowerCase().replace(/\s+/g," ")||"direct";
+const sellerName=r=>String(r.seller||"").trim()||"Direct (site)";
+function bySeller(){const M={};rows.forEach(r=>{if(r.status==="cancelled")return;const k=sk(r),o=M[k]=M[k]||{name:sellerName(r),c:0,p:0,fc:0,usd:0,cat:{standard:0,vip:0,vvip:0,sponsor:0,grand_sponsor:0},ids:[]};
+ o.ids.push(r.id);const n=+r.total||0;if(r.status==="confirmed"){o.c+=n;o.fc+=+r.fc||0;o.usd+=+r.usd||0;T.forEach(t=>o.cat[t[0]]+=+r[t[0]]||0)}else o.p+=n});
+ return Object.values(M).sort((a,b)=>b.c-a.c)}
+function drawSellers(){const l=bySeller();window._sl=l;
+ $("sl").innerHTML=l.map((o,i)=>`<div class="row2" style="color:#fff;border-color:#292929"><span><b>${esc(o.name)}</b><br><span class="sm">${o.c} billet${o.c>1?"s":""} vendu${o.c>1?"s":""} et confirmé${o.c>1?"s":""}${o.p?" • +"+o.p+" en attente":""}</span></span><span style="text-align:right"><b>${nf(o.fc)} FC</b><br>${nf(o.usd)} $ <button class="ab" onclick="renameSeller(${i})">✏️</button></span></div>`).join("")||'<span class="sm">Aucune vente.</span>'}
+async function renameSeller(i){const o=window._sl[i];if(!o)return;
+ const n=(prompt("Nouveau nom pour « "+o.name+" » (regroupe toutes ses ventes sous ce nom) :",o.name)||"").trim();if(!n)return;
+ try{await api("reservations?id=in.("+o.ids.join(",")+")",{method:"PATCH",headers:{Prefer:"return=minimal"},body:JSON.stringify({seller:n==="Direct (site)"?null:n})});load()}catch(e){if(e)alert("Échec du renommage")}}
+function csvSellers(){const l=bySeller();if(!l.length){alert("Aucune vente à exporter.");return}
+ const H3=["Vendeur","Billets confirmés","En attente",...T.map(t=>t[1]),"Total FC","Total USD"];
+ const s=[H3,...l.map(o=>[o.name,o.c,o.p,...T.map(t=>o.cat[t[0]]),o.fc,o.usd])].map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+s],{type:"text/csv;charset=utf-8;"}));a.download="rapport-vendeurs-restau-du-rire.csv";a.click()}
+const IC={"search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-3.5-3.5\"/>", "menu": "<path d=\"M4 7h16M4 12h16M4 17h16\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21c0-4 4-6 8-6s8 2 8 6\"/>", "login": "<path d=\"M10 17l5-5-5-5\"/><path d=\"M15 12H3\"/><path d=\"M14 4h5a2 2 0 012 2v12a2 2 0 01-2 2h-5\"/>", "ticket": "<path d=\"M3 8a2 2 0 012-2h14a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a2 2 0 100-4z\"/><path d=\"M13 7v10\" stroke-dasharray=\"2 2\"/>", "help": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9.5 9.5a2.5 2.5 0 114 2c-1 .7-1.5 1.2-1.5 2.5\"/><path d=\"M12 17.5h.01\"/>", "home": "<path d=\"M3 11l9-8 9 8\"/><path d=\"M5 10v10h14V10\"/><path d=\"M10 20v-6h4v6\"/>", "bolt": "<path d=\"M13 2L4 14h7l-1 8 9-12h-7z\"/>", "lock": "<rect x=\"4\" y=\"11\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 11V7a4 4 0 018 0v4\"/>", "cash": "<rect x=\"2\" y=\"6\" width=\"20\" height=\"12\" rx=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M6 12h.01M18 12h.01\"/>", "cal": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M8 3v4M16 3v4M3 10h18\"/>", "pin": "<path d=\"M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z\"/><circle cx=\"12\" cy=\"10\" r=\"2.5\"/>", "tag": "<path d=\"M3 12V4h8l10 10-8 8z\"/><circle cx=\"7.5\" cy=\"8.5\" r=\"1.2\"/>", "grid": "<rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.5\"/>", "tent": "<path d=\"M3 20L12 4l9 16z\"/><path d=\"M12 20v-6\"/>", "music": "<path d=\"M9 18V5l11-2v13\"/><circle cx=\"6.5\" cy=\"18\" r=\"2.5\"/><circle cx=\"17.5\" cy=\"16\" r=\"2.5\"/>", "mic": "<rect x=\"9\" y=\"3\" width=\"6\" height=\"11\" rx=\"3\"/><path d=\"M5 11a7 7 0 0014 0M12 18v3\"/>", "cap": "<path d=\"M2 9l10-5 10 5-10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5\"/>", "chev": "<path d=\"M9 6l6 6-6 6\"/>", "down": "<path d=\"M6 9l6 6 6-6\"/>", "globe": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18\"/>", "check": "<path d=\"M5 12l5 5 9-10\"/>"};
+const ic=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]}</svg>`;
+const EVENTS=[{id:"rdr15",cat:"spectacle",title:"LE RESTAU DU RIRE — ÉDITION 1.5",date:"dim. 27 déc. • 15:59",place:"Salle Concordia, Bukavu",price:"5 000 FC"}];
+const CATS=[["all","Tout","grid"],["festival","Festival","tent"],["concert","Concert","music"],["spectacle","Spectacle","mic"],["formation","Formation","cap"]];
+let cat="all",qs="";
+function drawCats(){$("ctabs").innerHTML=CATS.map(c=>`<button class="ct${c[0]===cat?" on":""}" onclick="setCat('${c[0]}')">${ic(c[2])}${c[1]}</button>`).join("")}
+function setCat(k){cat=k;drawCats();drawEvents()}
+function setQ(v){qs=String(v||"").toLowerCase().trim();["qs1","qs2"].forEach(i=>{if($(i).value!==v)$(i).value=v});if($("v-home").hidden)nav("home");drawEvents()}
+function drawEvents(){const l=EVENTS.filter(e=>(cat==="all"||e.cat===cat)&&(e.title+" "+e.place).toLowerCase().includes(qs));
+ $("evl").innerHTML=l.map(e=>`<div class="evc2" onclick="nav('reservation')"><div class="evimg2"><img class="lgo" alt="" src="${$("mainLogo").src}"><img class="pic" src="affiche.jpg" alt="Affiche" onerror="this.remove()"><span class="bd2">${ic("check")}Officiel</span><span class="tg2">${ic("tag")}${e.cat.toUpperCase()}</span></div>
+ <div class="evb2"><h3>${esc(e.title)}</h3><p>${ic("cal")}${esc(e.date)}</p><p>${ic("pin")}${esc(e.place)}</p><div class="evf2"><span>À partir de <b>${e.price}</b></span><span class="rb">Réserver</span></div></div></div>`).join("")||'<p class="sm" style="padding:14px">Aucun événement trouvé pour le moment.</p>'}
+drawCats();drawEvents();
+/* Réseaux sociaux : ajoutez le lien entre les guillemets, le bouton apparaît tout seul */
+const RS=[["🌐 Site","https://lerestaudurire.blogspot.com/?m=1"],["Instagram","https://www.instagram.com/le_restau_du_rire"],["TikTok","https://www.tiktok.com/@le.restau.du.rire"],["YouTube","https://www.youtube.com/@le_restau_du_rire"],["Threads","https://www.threads.net/@le_restau_du_rire_show"],["Linktree","https://linktr.ee/lerestaudurire"],["Facebook","https://www.facebook.com/share/19UDwk49cB/?mibextid=wwXIfr"],["X (Twitter)","https://x.com/lerestaudurire?s=11"],["LinkedIn","https://www.linkedin.com/in/le-restau-du-rire-5555b8400?utm_source=share_via&utm_content=profile&utm_medium=member_ios"],["WhatsApp Channel","https://whatsapp.com/channel/0029Vb7FjWB9cDDiAIGxkE3R"]];
+$("soc").innerHTML=RS.filter(r=>r[1]).map(r=>`<a href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a>`).join("");
+let sc=0; $("secret").onclick=()=>{if(++sc>=5){sc=0;goAdmin()}};
+upd(); loadTaken(); route();
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script></body></html>
